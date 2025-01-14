@@ -1,38 +1,23 @@
-1. Обговоримо формат JSON (практика **01-json.js**)
+/\*
 
-- Стандарт JSON
-- Перетворення у JSON
-- Парсинг з JSON
-- Перетворення функцій
-- Обробка помилок
+- Синхронний vs Асинхронний JS
+-
+- Стек виклику функцій (http://latentflip.com/loupe/)
+- window.setTimeout(callback, delay);
+- window.setInterval(callback, delay);
+- Очищення інтервалів та таймутів clearInterval(intervalID),
+  clearTimeout(timeoutID) \*/
 
-2. Розберемо API Web Storage та локальне сховище (практика **02-localstorage.js**)
+/\*
 
-- Web Storage API
-- Інструменти розробника
-- Локальне сховище
-- Додавання даних
-- Додавання складних даних
-- Отримання і видалення даних
-- Сховище сесії
+- Створення та обробка промісу
+- - Клас Promise
+- - resolve
+- - reject
+- - then, catch, finally \*/
 
-3. Розберемо:
+/\*
 
-- Що таке збирач проекту на прикладі [Vite] (https://vitejs.dev/)
-- Пакетний менеджер npm
-- Використання Vite-збірки
-  [vanilla-app-template](https://github.com/goitacademy/vanilla-app-template)
-  - Створюємо проект на базі збірки з README
-  - npm-скрипти
-
-4. Обговоримо:
-
-- Модульність коду
-- Експорти та імпорти
-- NPM пакети
-  - встановлення
-  - Видалення
-- ECMAScript модулі
-  - Дефолтний (default) експорт та імпорт
-  - Іменований (named) експорт та імпорт
-  - Імпорт простору імен (namespace)
+- Ланцюжки промісів
+- - декілька послідовних then
+- - then повертає проміс \*/

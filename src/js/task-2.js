@@ -9,40 +9,75 @@
 //? Додайте кнопку "Зупинити", щоб користувач міг зупинити таймер раніше.
 
 //* Find elements
-const numInput = document.querySelector('.num-input'); 
-const startBtn = document.querySelector('.startBtn'); 
-const endBtn = document.querySelector('.stop'); 
+const minuteInput = document.querySelector('.num-input');
+const startBtn = document.querySelector('.startBtn');
+const stopBtn = document.querySelector('.stopBtn');
 
-const time = document.querySelector('.clock');
-
-let timerId = null;
+const hoursDiv = document.querySelector('.hours');
+const minDiv = document.querySelector('.minutes');
+const secDiv = document.querySelector('.seconds');
 
 
 //* Add event listener
-const onStartBtnClick = () => {
-    const startDate = new Date();
-    const endDate = new Date(startDate.getTime() + Number(numInput.value) * 60000);
+const timer = {
+    interval: null,
+    deadline: null,
 
-    const updateTimer = () => {
-        const dateNow = new Date();
-        const timeLeft = endDate - dateNow;
+    start(){
+        this.deadline = new Date(Date.now() + Number(minuteInput.value) * 60000);
+        
+        this.interval = setInterval(() => {
+            const diff = this.deadline - Date.now();
+            
+            if(diff <= 0){
+                timer.stop();
 
-        if (timeLeft <= 0) {
-            clearInterval(timerId);
-            time.textContent = "00:00";
-            alert('Час вийшов');
-            return;
+                alert('Time is out🎉');
+                return;
+            }
+
+            const timeComponents =  this.getTimeComponents(diff);
+
+            hoursDiv.textContent = this.padFunc(Math.floor(timeComponents.hours));
+            minDiv.textContent = this.padFunc(Math.floor(timeComponents.minutes));
+            secDiv.textContent = this.padFunc(Math.floor(timeComponents.seconds));
+            minuteInput.value = '';
+        }, 1000)
+    },
+
+    getTimeComponents(diff){
+        const hours = (diff / 1000 / 60 / 60);
+        const minutes = (diff / 1000 / 60) % 60;
+        const seconds = (diff / 1000 ) % 60;
+
+        return{
+            hours,
+            minutes,
+            seconds
         }
+    },
 
-        const minutes = Math.floor(timeLeft / 60000);
-        const seconds = Math.floor((timeLeft % 60000) / 1000);
+    padFunc(num){
+        return String(num).padStart(2, 0);
+    },
 
-        time.textContent = `${minutes}:${seconds}`
-    };
+    stop(){
+        clearInterval(this.interval);
+        hoursDiv.textContent = '00';
+        minDiv.textContent = '00';
+        secDiv.textContent = '00';
+    }
+}
 
-    timerId = setInterval(updateTimer, 1000);
+startBtn.addEventListener('click', () => {
+    if(minuteInput.value == ''){
+        return;
+    } else{
+        timer.start();
+    }
+})
 
-    updateTimer();
-};
 
-startBtn.addEventListener('click', onStartBtnClick);
+stopBtn.addEventListener('click', () => {
+    timer.stop();
+})
